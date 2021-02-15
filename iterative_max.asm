@@ -117,5 +117,13 @@ Exit:
 IterativeMax:
     #TODO: write your code here, $a0 stores the address of the array, $a1 stores the length of the array
 
-    # Do not remove this line
+
+
+IterativeMax_loop:
+
+
+IterativeMax_exit:
+
+    lw $ra, 0($sp)
+
     jr      $ra
