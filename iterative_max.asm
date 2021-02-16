@@ -117,13 +117,51 @@ Exit:
 IterativeMax:
     #TODO: write your code here, $a0 stores the address of the array, $a1 stores the length of the array
 
+    addiu $sp, $sp, -4
+    sw $ra, 0($sp)
 
+    move $s0, $a0  # $s0 holds address of array
+    move $s1, $a1  # $s1 holds length of array
+    lw $s2, 0($s0) # $s2 holds max of the array
 
 IterativeMax_loop:
 
+    beq $s1, $zero, IterativeMax_exit
+
+    lw $t0, 0($s0)
+    li $v0, 1
+    move $a0, $t0
+    syscall
+
+    li $v0, 4
+    la $a0, newline
+    syscall
+
+    blt $s2, $t0, IterativeMax_newMax
+
+
+IterativeMax_loop2:
+
+    li $v0, 1
+    move $a0, $s2
+    syscall
+
+    jal ConventionCheck
+
+    addiu $s0, $s0, 4
+    addi $s1, $s1 -1
+
+    j IterativeMax_loop
+
+IterativeMax_newMax:
+
+    move $s2, $t0
+
+    j IterativeMax_loop2
 
 IterativeMax_exit:
 
     lw $ra, 0($sp)
+    addiu $sp, $sp, 4
 
     jr      $ra

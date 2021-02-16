@@ -118,31 +118,31 @@ PrintReverse:
     #TODO: write your code here, $a0 stores the address of the array, $a1 stores the length of the array
 
     move $s0, $a0
-    move $s1, $a1
 
-    addiu $sp, $sp, -12
+    addiu $sp, $sp, -8
     sw $ra, 0($sp)
     sw $s0, 4($sp)
-    sw $s1, 8($sp)
 
     li $t0, 4
     mult $t0, $a1
     mflo $t0
     addi $t0, $t0, -4
-    addu $s2, $a0, $t0
+    addu $s0, $a0, $t0
+
+    move $s1, $a1
 
 PrintReverse_loop:
 
     beq $s1, $zero, PrintReverse_exit
 
-    lw $t0, 0($s2)
+    lw $t0, 0($s0)
     li $v0, 1
     move $a0, $t0
     syscall
 
     jal ConventionCheck
 
-    addiu $s2, $s2, -4
+    addi $s0, $s0, -4
     addi $s1, $s1, -1
 
     j PrintReverse_loop
@@ -151,10 +151,8 @@ PrintReverse_exit:
 
     lw $ra, 0($sp)
     lw $s0, 4($sp)
-    lw $s1, 8($sp)
-    addiu $sp, $sp, 12
+    addiu $sp, $sp, 8
 
     move $a0, $s0
-    move $a1, $s1
 
     jr      $ra
