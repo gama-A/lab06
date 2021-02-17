@@ -117,8 +117,11 @@ Exit:
 IterativeMax:
     #TODO: write your code here, $a0 stores the address of the array, $a1 stores the length of the array
 
-    addiu $sp, $sp, -4
+    addiu $sp, $sp, -16
     sw $ra, 0($sp)
+    sw $s0, 4($sp)
+    sw $s1, 8($sp)
+    sw $s2, 12($sp)
 
     move $s0, $a0  # $s0 holds address of array
     move $s1, $a1  # $s1 holds length of array
@@ -162,6 +165,9 @@ IterativeMax_newMax:
 IterativeMax_exit:
 
     lw $ra, 0($sp)
-    addiu $sp, $sp, 4
+    lw $s0, 4($sp)
+    lw $s1, 8($sp)
+    lw $s2, 12($sp)
+    addiu $sp, $sp, 16
 
     jr      $ra

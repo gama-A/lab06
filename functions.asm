@@ -117,11 +117,10 @@ Exit:
 PrintReverse:
     #TODO: write your code here, $a0 stores the address of the array, $a1 stores the length of the array
 
-    move $s0, $a0
-
-    addiu $sp, $sp, -8
+    addiu $sp, $sp, -12
     sw $ra, 0($sp)
     sw $s0, 4($sp)
+    sw $s1, 8($sp)
 
     li $t0, 4
     mult $t0, $a1
@@ -151,8 +150,7 @@ PrintReverse_exit:
 
     lw $ra, 0($sp)
     lw $s0, 4($sp)
-    addiu $sp, $sp, 8
-
-    move $a0, $s0
+    lw $s1, 8($sp)
+    addiu $sp, $sp, 12
 
     jr      $ra
